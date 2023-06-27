@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import AddUser from './components/AddUser/AddUser';
 import UserList from './components/UsersList/UserList';
-import ErrorModal from './components/ErrorModal/ErrorModal';
+
 
 const App = () => {
+  const [userList,setUserList] = useState([]);
+
+  const addUserHandler = (Uname,Uage) =>{
+    setUserList((prevUserList)=>{
+      return [...prevUserList, { name: Uname, age: Uage ,id: Math.random().toString()}]
+    })
+  }
+
   return (
     <div>
-      <AddUser />
-      <UserList />
+      <AddUser onAddUser={addUserHandler}/>
+      <UserList users={userList} />
     </div>
   )
 }
